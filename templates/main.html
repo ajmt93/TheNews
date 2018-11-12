@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href= "{{ url_for('static', filename='custom.css') }}"/>
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+  <body>
+    <a href='/'>Home</a> <a href='/articles'>Archive</a> <a href='/team'>The Team</a>
+    {% if not session.login %}
+      <a href='login'>login</a>
+    {% else %}
+      <a href='api'>API</a>
+      <a href='logout'>logout</a>
+    {% endif %}
+
+    {% with errors = get_flashed_messages() %}
+      {% if errors %}
+        {% for message in errors %}
+          <p>{{message}}</p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </body>
+</html>
